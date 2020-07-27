@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
+import { UserType } from './user.dto';
 
 // decorator
 
@@ -12,7 +13,7 @@ export class UserEntity extends BaseEntity {
   email: string;
 
   @Column({ name: "user_type" })
-  userType: string;
+  userType: UserType = UserType.Member;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
