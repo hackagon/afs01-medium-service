@@ -14,6 +14,22 @@ export class UserController {
     return await this.userService.getUsers()
   }
 
+  // relation
+  @Get("/stories")
+  async getStoriesByUsers(): Promise<any[]> {
+    return await this.userService.getStoriesByUsers()
+  }
+
+  @Get("/:id/stories")
+  async getStoriesByUserId(@Param("id") id: number) {
+    return await this.userService.getStoriesByUserId(id)
+  }
+
+  @Get("/:id/_stories")
+  async _getStoriesByUserId(@Param("id") id: number) {
+    return await this.userService._getStoriesByUserId(id)
+  }
+
   @Get("/:id")
   async getUserById(@Param("id") id: number) {
     return await this.userService.getUserById(id);

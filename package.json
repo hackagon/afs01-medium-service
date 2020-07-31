@@ -32,6 +32,7 @@
     "lodash": "^4.17.19",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
+    "require-sql": "^1.0.0",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",
     "typeorm": "^0.2.25"

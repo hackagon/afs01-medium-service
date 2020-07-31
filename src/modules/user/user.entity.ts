@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, OneToMany } from "typeorm";
 import { UserType } from './user.dto';
+import { StoryEntity } from '../story/story.entity';
 
 // decorator
 
@@ -20,4 +21,10 @@ export class UserEntity extends BaseEntity {
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
+
+  // relation
+  @OneToMany(type => StoryEntity, story => story.userId, {
+    cascade: true
+  })
+  stories: StoryEntity[]
 }
