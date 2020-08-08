@@ -1,8 +1,9 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, ManyToMany, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, ManyToMany, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { cleanAccents } from '../../utils/hanldeString';
 import * as _ from "lodash";
 import { StoryStatus } from './story.dto';
 import { UserEntity } from '../user/user.entity';
+import { ItemEntity } from '../item/item.entity';
 
 @Entity({ name: "story" })
 export class StoryEntity extends BaseEntity {
@@ -24,6 +25,10 @@ export class StoryEntity extends BaseEntity {
 
   @Column()
   status: StoryStatus = StoryStatus.Draft
+  // Draft, Published, Modified
+  // Draft: CUD item => Draft
+  // Published: CUD item => Modified
+  // Modified: CUD item => Modified
 
   @Column()
   slug: string;
@@ -33,6 +38,12 @@ export class StoryEntity extends BaseEntity {
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
+
+  // relation
+  @OneToMany(type => ItemEntity, item => item.storyId, {
+    cascade: true
+  })
+  items: ItemEntity[]
 
   @BeforeInsert()
   @BeforeUpdate()

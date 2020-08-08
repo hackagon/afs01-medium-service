@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException, BadRequestException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { StoryRepository } from './story.repository';
 import { StoryEntity } from './story.entity';
-import { CreateStoryDTO, UpdateStoryDTO, ReplaceStoryDTO } from './story.dto';
+import { CreateStoryDTO, UpdateStoryDTO, ReplaceStoryDTO, StoryStatus } from './story.dto';
 import * as _ from "lodash"
 
 @Injectable()
@@ -47,5 +47,15 @@ export class StoryService {
     const foundStory = await this.getStoryById(id);
     this.storyRepo.delete(id)
     return foundStory
+  }
+
+  async publishStatus(
+    storyId: number
+  ) {
+    let foundStory = await this.getStoryById(storyId);
+    if (foundStory.status === StoryStatus.Published) throw new BadRequestException("Story is already published")
+
+    foundStory.status = StoryStatus.Published
+    return await foundStory.save()
   }
 }

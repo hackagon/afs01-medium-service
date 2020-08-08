@@ -7,6 +7,7 @@ import * as _ from "lodash";
 import { StoryEntity } from "../story/story.entity";
 import { Connection } from "typeorm";
 import * as path from "path";
+import "require-sql";
 
 @Injectable()
 export class UserService {
@@ -61,19 +62,9 @@ export class UserService {
   }
 
   async _getStoriesByUserId(id: number): Promise<any> {
-    const sqlQuery = `
-      SELECT
-        *
-      FROM
-        USER LEFT JOIN story ON USER.id = story.user_id 
-      WHERE
-        USER.id = ${id};
-    `
-    // const sqlPath = path.join(__dirname, "/../../../../script/query_stories_by_user.sql")
-    // const compiled = _.template(require(sqlPath))
-    // console.log("compiled", compiled)
-    // const sqlQuery = compiled({ user_id: id })
-    // console.log(sqlQuery)
+    const sqlPath = path.join(__dirname, "/../../../../script/query_stories_by_user.sql")
+    const compiled = _.template(require(sqlPath))
+    const sqlQuery = compiled({ user_id: id })
 
     const sqlRecords = await this.connection.query(sqlQuery);
 

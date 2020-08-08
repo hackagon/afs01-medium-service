@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Put, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Patch, Put, Delete, ParseIntPipe } from "@nestjs/common";
 import { StoryService } from './story.service';
 import { StoryEntity } from "./story.entity";
 import { CreateStoryDTO, UpdateStoryDTO, ReplaceStoryDTO } from './story.dto';
@@ -27,6 +27,13 @@ export class StoryController {
   @Patch("/:id")
   async updateStoryById(@Param("id") id: number, @Body() data: UpdateStoryDTO): Promise<StoryEntity> {
     return await this.storyService.updateStoryById(id, data)
+  }
+
+  @Patch("/:id/publish")
+  async publishStory(
+    @Param("id", ParseIntPipe) storyId: number
+  ) {
+    return await this.storyService.publishStatus(storyId);
   }
 
   @Put("/:id")
