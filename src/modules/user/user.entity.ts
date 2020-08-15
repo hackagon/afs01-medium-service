@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, OneToMany } from "typeorm";
 import { UserType } from './user.dto';
 import { StoryEntity } from '../story/story.entity';
+import { SeriesEntity } from '../series/series.entity';
 
 // decorator
-
 
 @Entity({ name: "user" })
 export class UserEntity extends BaseEntity {
@@ -27,4 +27,9 @@ export class UserEntity extends BaseEntity {
     cascade: true
   })
   stories: StoryEntity[]
+
+  @OneToMany(type => SeriesEntity, series => series.userId, {
+    cascade: true
+  })
+  series: SeriesEntity[]
 }

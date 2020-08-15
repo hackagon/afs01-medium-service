@@ -8,6 +8,8 @@ import { ValidatorModule } from './modules/validator/validator.module';
 import { StoryModule } from './modules/story/story.module';
 import { ItemTypeModule } from './modules/item-type/item-type.module';
 import { StoryItemModule } from './modules/story-item/story-item.module';
+import { SeriesModule } from './modules/series/series.moduloe';
+import { SeriesStoryModule } from './modules/series-story/series-story.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { StoryItemModule } from './modules/story-item/story-item.module';
     StoryItemModule,
     StoryModule,
     ItemTypeModule,
+    SeriesModule,
+    SeriesStoryModule
   ],
   controllers: [AppController],
   providers: [AppService],
