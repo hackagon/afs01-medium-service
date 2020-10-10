@@ -4,22 +4,22 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: ["warn", "error"]
+    logger: ['warn', 'error'],
   });
 
-  app.setGlobalPrefix("/api");
+  app.setGlobalPrefix('/api');
 
   app.useGlobalPipes(
     new ValidationPipe({
       validationError: {
-        target: false
-      }
-    })
-  )
+        target: false,
+      },
+    }),
+  );
 
-  const port = process.env.PORT || 5002
+  const port = process.env.PORT || 5000;
   await app.listen(port, () => {
-    console.log(`Service is running on port ${port}`)
+    console.log(`Service is running on port ${port}`);
   });
 }
 bootstrap();

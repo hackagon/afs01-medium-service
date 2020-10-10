@@ -10,18 +10,21 @@ import { ItemTypeModule } from './modules/item-type/item-type.module';
 import { StoryItemModule } from './modules/story-item/story-item.module';
 import { SeriesModule } from './modules/series/series.moduloe';
 import { SeriesStoryModule } from './modules/series-story/series-story.module';
+import { AuthenticationModule } from './modules/auth/authentication.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
-    UserModule, ValidatorModule,
+    UserModule,
+    ValidatorModule,
     StoryItemModule,
     StoryModule,
     ItemTypeModule,
     SeriesModule,
-    SeriesStoryModule
+    SeriesStoryModule,
+    AuthenticationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
